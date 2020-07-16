@@ -1,0 +1,46 @@
+/* Palette : 211103-3d1308-7b0d1e-9f2042-f8e5ee */
+#TOC {
+position: fixed;
+left: 0;
+top: 0;
+width: 250px;
+background-color: #B7E1F1;
+height: 100%;
+overflow:auto;
+}
+
+/*background colour of text in contents*/
+.list-group-item {
+    background-color: #B7E1F1;
+}
+/*background colour of text hovered over in contents*/
+.list-group-item:hover {
+    background-color: #000000;
+    color: white
+}
+/*background colour of text selected over in contents*/
+.list-group-item.active{
+    background-color: navy;
+    color: white;
+}
+
+
+body {
+max-width: 1200px;
+margin: auto;
+margin-left:260px;
+line-height: 20px;
+}
+
+/*header colours*/
+h1 {color: navy}
+h2 {color: #0033cc}
+/*hyperlink colours*/
+a {color: navy;}
+
+/*document set-up*/
+main-container {
+  max-width: 30000px;
+  margin-left: auto;
+  margin-right: auto;
+}
