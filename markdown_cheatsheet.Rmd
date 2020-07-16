@@ -58,7 +58,7 @@ The document is set up using the YAML (a recursive acronym for "YAML Ain't Marku
 a human-readable data-serialization language which goes right at the start. It is used for 
 configuring the file so useful for TOC, titles, authorship and dates.
 
-## 🗓 Using Today's Date
+## Using Today's Date
 
 date: 
 
@@ -68,27 +68,28 @@ date:
 
 To use this by default in the document add this line to the YAML:
 
-```{r, eval=FALSE}
+```
 ---
 title: "Markdown cheatsheet"
 date: "`r Sys.Date()`"
 ---
 ```
 
-## 📖 Including a contents page
+## Including a contents page
 
 In the YAML include
 
-```{r, eval=FALSE}
+```
 ---
 title: "Markdown cheatsheet"
  html_document: 
-  toc: yes 
+  toc: yes
+---
 ```
 
 ### Floating TOC at LHS
 
-```{r, eval=FALSE}
+```
 ---
 title: "Markdown cheatsheet"
 output:
@@ -100,7 +101,7 @@ output:
 
 ### Collapsible TOC
 
-```{r, eval=FALSE}
+```
 ---
 title: "Markdown cheatsheet"
 output:
@@ -117,7 +118,8 @@ output:
 As is used here on the left hand side
 
 In the YAML:
-```{r}
+
+```
 ---
 output:
  html_document: 
@@ -126,31 +128,30 @@ output:
 ---
 ```
 
-Call on the css styling saves to cheatsheet.css. 
+Call on the css styling saves to cheatsheet.css or within the markdown:
 
-````markdown
-```{css}
-#TOC {
-   position: fixed;
-   left: 0;
-   top: 0;
-   width: 250px;
-   background-color: #B7E1F1;
-   height: 100%;
-   overflow:auto;
- }
- body {
-   max-width: 800px;
-   margin: auto;
-   margin-left:260px;
-   line-height: 20px;
- }
 ```
-````
+<style>
+#TOC {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 250px;
+  background-color: #B7E1F1;
+  height: 100%;
+  overflow:auto;
+}
+body {
+  max-width: 800px;
+  margin: auto;
+  margin-left:260px;
+  line-height: 20px;
+ }
+ </style>
+```
 
-Or you can include it at the start of your rmd file within <style>....</style>
 
-## 💜 Add a favicon
+## Adding a favicon
 
 Add an image to the header of the document. To change the icon (from heart) change to url to point to another icon: 
 
@@ -161,25 +162,22 @@ close(fileConn)
 ```
 
 
-# 🖥 Code-Folding
+# Document Transparency
 
-Code-folding is really useful to allow readers to inspect code if the wish without cluttering up the document. For example
+This will let you copy plots across wihout the white background etc. 
 
-<style>
-div.hidecode + pre {display: none}
-</style>
-<script>
-doclick=function(e){
-e.nextSibling.nextSibling.style.display="block";
-}
-</script>
-
-<buttdiv class="hidecode" onclick="doclick(this);">[Show Code]</div>
-r, eval=TRUE}
-summary(cars)
+```{r}
+knitr::opts_chunk$set(dev.args=list(bg="transparent"))
 ```
 
 
+# Code-Folding
+
+Code-folding is really useful to allow readers to inspect code if they wish but without cluttering up the document. For example: 
+
+![](https://rstudioblog.files.wordpress.com/2016/03/screen-shot-2016-03-21-at-7-27-40-am.png)
+
+To do this add code_folding to your YAML:
 
 ```
 ---
@@ -191,90 +189,90 @@ output:
 
 # Tabbing Content
 
-```
-## title {.tabset .tabset-fade}
-content above tabbed region.
+For This converts subsections to tabs. example
 
-## tab 1 
+## Start tabbing section {.toc-ignore .tabset .tabset-fade}
+
+### tab 1 {.toc-ignore}
 
 tab content 1
 
-## tab 2
+### tab 2 {.toc-ignore}
 
 tab content 2
 
 ##
 
-content below tabbed region
+code:
+
+```
+## Start tabbing section {.toc-ignore .tabset .tabset-fade}
+content above tabbed region.
+
+### tab 1 {.toc-ignore}
+
+tab content 1
+
+### tab 2 {.toc-ignore}
+
+tab content 2
+
+##
 ```
 
-Doing it in a loop (you will need to uncomment the ``` lines): 
+To include in the toc, simply remove the .toc-ignore. Doing it natively in R, in a loop:
 
-```{r, eval=FALSE}
-## Tabbed section {.tabset .tabset-fade}
 
-#```{r datasummary, results='asis', eval=TRUE}
-var.list = paste('var', 1:5)
-
-for (i in var.list ){  #
+```
+``{r, results='asis'}
+for(i in paste('tab', 1:2)){
   cat('\n')
-  cat('#### ', i, '\n')
-  cat('analysis for variable', i)
+  cat('###', i, '\n')
+  cat('analysis for var', i)
   cat('\n')
 }
-# {.toc-ignore}```
+``
 ```
 
+# Highlight section
 
-## Tabbed section {.tabset .tabset-fade}
-
-```{r, results='asis', eval=TRUE}
-var.list = paste("var", 1:5)
-
-for (i in var.list ){  #
-  cat('\n')
-  cat("#### ", i, "\n")
-  cat("analysis for variable", i)
-  cat('\n')
-}
-```
-
-# Highlighted section
+To highlight text you can create a div: 
 
 ```
 <style>
 div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 </style>
+
 <div class = "blue">
-
-Let try highlighting a phrase: ```{r eval=FALSE} paste("hello", "world", sep=" ")``` 
-
+Let try highlighting this phrase 
 </div>
 ```
-
 
 <style>
 div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 </style>
 <div class = "blue">
 
-Let try highlighting a phrase: `r paste("hello", "world", sep=" ")` 
+Let try highlighting this phrase 
 
 </div>
 
-# Nicely formatted tables
 
-scrollable tables:
+# Data Tables
 
-```
+## Scrollable tables
+
+```{r, eval=TRUE}
+library("kableExtra")
 kable(iris)  %>%
   kable_styling() %>%
   scroll_box(width = "100%", height = "200px")
 ```
 
-printable/downloadable DT tables
+## Downloadable DT tables
 
-```
+```{r, eval=TRUE}
+library("DT")
 DT::datatable(iris, extensions = 'Buttons',
                 options=list(dom = 'Bfrtip',
                              buttons = c('excel','csv','print'),
@@ -282,18 +280,19 @@ DT::datatable(iris, extensions = 'Buttons',
                                'function(row,data) {
      if($(row)["0"]["_DT_RowIndex"] % 2 <1) 
             $(row).css("background","#f2f9ec")
-   }')))
+    }')))
 ```
 
-# Running total in table
+## Running total in table
 
-For example to get a running total in the 5th column:
+For example to get a running total in the 2nd column:
 
-```
-library(htmlwidgets)
-library(DT)
-library(htmltools)
+```{r, eval=TRUE}
+library("htmlwidgets")
+library("DT")
+library("htmltools")
 
+df = cars
 cols.vals = rep("", (ncol(df)) )
 
 sketch <- htmltools::withTags(table(
@@ -303,30 +302,14 @@ sketch <- htmltools::withTags(table(
 
 jsCode <- "function(row, data, start, end, display) {
   var api = this.api(), data;
-  total2 = api.column(5, {page: 'current'}).data().reduce( function(a, b) { return a 
+  total2 = api.column(1, {page: 'current'}).data().reduce( function(a, b) { return a 
 + b}, 0);
-  $( api.column(5).footer() ).html('Total: ' + total2.toFixed(2))
+  $( api.column(1).footer() ).html('Total: ' + total2.toFixed(2))
   }"
 
 DT::datatable(df, container = sketch, filter="top", rownames = NULL,
               options=list( footerCallback = JS(jsCode)))
 ```
 
-# Transparent backgrounds
+Note that this is written in javascript to indexing starts from 0. Therefore to get the 2nd column you must use api.column(1, ...). 
 
-This allows you to simply copy and paste figures to presentations etc. 
-
-```
-knitr::opts_chunk$set(dev.args=list(bg="transparent"))
-```
-
-# Unicode variables
-
-| Character 	| Unicode 	| In R       	|
-|-----------	|---------	|------------	|
-| ≤         	| U+2264  	| \\U2264 	|
-| ≥         	| U+2265  	| \\U2265 	|
-
-# Render rmds when mapped
-
-`library("rmarkdown)`<br/>`render(filename, output_dir="./")`<br/><br/>Or if you are in the directory you are running from you can just run:<br/><br/>`rmarkdown::render(list.files(pattern=".rmd", ignore.case = TRUE), output_dir=".")`<br/><br/>NB: This works if there is only one rmd file in your directory.
