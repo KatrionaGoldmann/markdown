@@ -1,4 +1,5 @@
 # A markdown cheatsheet
 
 
-To view the output see [here!](https://htmlpreview.github.io/?https://github.com/KatrionaGoldmann/markdown/blob/master/markdown_cheatsheet.html)
+To view the output see [here!](https://katrionagoldmann.github.io/markdown/markdown_cheatsheet.html)
+
