@@ -112,6 +112,13 @@ output:
 ---
 ```
 
+### TOC at the start
+
+
+```{r toc, eval = FALSE}
+source("https://gist.githubusercontent.com/KatrionaGoldmann/3d6dfd6aa4cc5c3940bb72dc49beae02/raw/26e78c78a7a9d096d695c708e8a45830a1d1121a/render_toc.R")
+render_toc("./Extended_Vignette.rmd")
+```
 
 ### Including a TOC sidebar
 
@@ -201,7 +208,7 @@ tab content 1
 
 tab content 2
 
-##
+## {.toc-ignore}
 
 code:
 
@@ -234,9 +241,38 @@ for(i in paste('tab', 1:2)){
 ``
 ```
 
+# Shiny Apps
+
+To include shiny apps you will need to add to your yaml: 
+
+```
+---
+title: "A Shiny Enabled Document"
+output: html_document
+runtime: shiny
+---
+```
+
+```{r, echo=TRUE, eval=FALSE}
+selectInput(
+  'breaks', label = 'Number of bins:',
+  choices = c(10, 20, 35, 50), selected = 20
+)
+
+renderPlot({
+  par(mar = c(4, 4, .1, .5))
+  hist(
+    faithful$eruptions, as.numeric(input$breaks),
+    col = 'gray', border = 'white',
+    xlab = 'Duration (minutes)', main = ''
+  )
+})
+```
+
+
 # Highlight section
 
-To highlight text you can create a div: 
+To highlight a section you can create a div: 
 
 ```
 <style>
@@ -257,6 +293,13 @@ Let try highlighting this phrase
 
 </div>
 
+To highlight only words: 
+
+```
+<span style="background-color: lightgrey; border-radius: 5px; padding: 2px">R</span>; <span style="background-color: lightgrey; border-radius: 5px; padding: 2px">data visualisation</span>; <span style="background-color: lightgrey; border-radius: 5px; padding: 2px">bioinformatics</span>; <span style="background-color: lightgrey; border-radius: 5px; padding: 2px">transcriptomics</span>;
+```
+
+<span style="background-color: lightgrey; border-radius: 5px; padding: 2px">R</span>; <span style="background-color: lightgrey; border-radius: 5px; padding: 2px">data visualisation</span>; <span style="background-color: lightgrey; border-radius: 5px; padding: 2px">bioinformatics</span>; <span style="background-color: lightgrey; border-radius: 5px; padding: 2px">transcriptomics</span>;
 
 # Data Tables
 
@@ -312,4 +355,37 @@ DT::datatable(df, container = sketch, filter="top", rownames = NULL,
 ```
 
 Note that this is written in javascript to indexing starts from 0. Therefore to get the 2nd column you must use api.column(1, ...). 
+
+# References
+
+Referebces can easily be added latex style from a bib file:
+
+```
+---
+title: "Your title here"re
+bibliography: your-bib-file.bib
+link-citations: yes
+---
+```
+
+Bibliographies will be placed at the end of the document. Normally, you will want to end your document with an appropriate header:
+
+```
+last paragraph...
+
+# References
+The bibliography will be inserted after this header.
+```
+
+By default, pandoc will use a Chicago author-date format for citations and references. To use another style, you will need to specify a CSL 1.0 style file in the csl metadata field. For example:
+```
+---
+title: "Sample Document"
+output: html_document
+bibliography: bibliography.bib
+csl: biomed-central.csl
+---
+```
+
+See [Zotero](http://zotero.org/styles) for journal styles. 
 
