@@ -21,9 +21,9 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning=FALSE, eval=FALSE,
 ```
 
 
-```{r, include=FALSE}
+```{r, echo=FALSE}
 fileConn <- file("myheader.html")
-writeLines('<link rel="shortcut icon" href="http://d1ujqdpfgkvqfi.cloudfront.net/favicon-generator/htdocs/favicons/2013-10-15/19fefe8ca2a66ba90e35d0d5fc7162a6.ico">', fileConn)
+writeLines('<link rel="shortcut icon" href="https://img.icons8.com/dusk/64/000000/markdown.png">', fileConn)
 close(fileConn)
 ```
 
@@ -157,6 +157,13 @@ body {
  </style>
 ```
 
+### Hide Header from TOC
+
+Add \{.toc-ignore\}
+
+```
+# Hidden header {.toc-ignore}
+```
 
 ## Adding a favicon
 
@@ -355,6 +362,14 @@ DT::datatable(df, container = sketch, filter="top", rownames = NULL,
 ```
 
 Note that this is written in javascript to indexing starts from 0. Therefore to get the 2nd column you must use api.column(1, ...). 
+
+# Figure Size
+
+There are two parameters to set figure size: 
+* fig.height, fig.width
+* out.height, out.width
+
+We are allowed to specify the figure size (fig.\*), and secondly the size of the figure as to appear in the output (out.\*). For example, if you set the size of a ggplot figure too large, then fonts etc. will appear tiny. Its best not scale up fig.height, but set out.width accordingly, eg. out.width = "70%".
 
 # References
 
