@@ -68,7 +68,7 @@ date:
 
 To use this by default in the document add this line to the YAML:
 
-```
+```{markdown}
 ---
 title: "Markdown cheatsheet"
 date: "`r Sys.Date()`"
