@@ -28,7 +28,7 @@ close(fileConn)
 ```
 
 
-![](./reproducible.jpeg)
+![Image by Allison Horst (@allison_horst)](./reproducible.jpeg)
 
 This is a document outlining my favourite markdownd set-ups and common implementations. 
 
